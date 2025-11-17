@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Successful - SecureShare WebVault</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Successful!</h1>
+        <p>Your files have been encrypted. Click a link below to go to the download page for that file.</p>
+
+        <div class="card">
+            <h2>Your Download Links:</h2>
+            <ul>
+                {% for file_id in file_ids %}
+                    <li>
+                        <a href="{{ url_for('download_file', file_id=file_id) }}">{{ file_id }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <p><a href="{{ url_for('index') }}">Upload more files</a></p>
+    </div>
+</body>
+</html>

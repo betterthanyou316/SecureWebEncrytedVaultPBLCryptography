@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download File - SecureShare WebVault</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Download Your Secure File</h1>
+        <p>You are about to download: <strong>{{ file_id }}</strong></p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="message {{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <h2>Enter Password to Decrypt</h2>
+            <form id="downloadForm" action="{{ url_for('download_file', file_id=file_id) }}" method="post">
+                <label for="downloadPassword">Password:</label>
+                <input type="password" id="downloadPassword" name="password" required><br><br>
+                <input type="submit" value="Decrypt & Download">
+            </form>
+        </div>
+        <p><a href="{{ url_for('index') }}">Go back to homepage</a></p>
+    </div>
+</body>
+</html>

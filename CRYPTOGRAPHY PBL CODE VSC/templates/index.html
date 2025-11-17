@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>SecureShare WebVault</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to SecureShare WebVault!</h1>
+        <p>Your secure online vault for encrypted files. You can select up to 10 files to upload at once.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="message {{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card">
+            <h2>Upload Files</h2>
+            
+            <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                
+                <label for="fileInput">Choose files:</label>
+                <input type="file" id="fileInput" name="file" multiple><br><br>
+
+                <label for="uploadPassword">Enter password for encryption:</label>
+                <input type="password" id="uploadPassword" name="password" required><br><br>
+
+                <input type="submit" value="Encrypt & Upload">
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Download a File</h2>
+            <p>Already have a file ID? Enter it here to go to the download page.</p>
+            
+            <form id="goToDownloadForm">
+                <label for="fileIdInput">Enter File ID:</label>
+                <input type="text" id="fileIdInput" name="file_id" placeholder="e.g., test.jpg.enc" required><br><br>
+                <input type="submit" value="Go to Download Page">
+            </form>
+        </div>
+
+    </div> <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
